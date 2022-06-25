@@ -69,8 +69,12 @@ void RTC_TimeAndDate_Show(void)
 	RTC_TimeTypeDef RTC_TimeStructure;
 	RTC_DateTypeDef RTC_DateStructure;
 	
-	while(1)
-	{
+	LCD_SetFont(&Font8x16);
+	LCD_SetTextColor(WHITE);
+	ILI9341_Clear(0,0,LCD_X_LENGTH,LCD_Y_LENGTH);
+	
+	while(1){
+
 		// 获取日历
 		HAL_RTC_GetTime(&Rtc_Handle, &RTC_TimeStructure, RTC_FORMAT_BIN);
 		HAL_RTC_GetDate(&Rtc_Handle, &RTC_DateStructure, RTC_FORMAT_BIN);
@@ -88,13 +92,14 @@ void RTC_TimeAndDate_Show(void)
 
 			//液晶显示日期
 			//先把要显示的数据用sprintf函数转换为字符串，然后才能用液晶显示函数显示
-			sprintf(LCDTemp,"The Date :  Y:20%0.2d - M:%0.2d - D:%0.2d - W:%0.2d", 
+			sprintf(LCDTemp,"20%0.2d-%0.2d-%0.2d-%0.2d", 
 			RTC_DateStructure.Year,
 			RTC_DateStructure.Month, 
 			RTC_DateStructure.Date,
 			RTC_DateStructure.WeekDay);
 		#ifdef USE_LCD_DISPLAY
-			ILI9341_DispStringLine_EN(LINE(2),LCDTemp); 
+//			ILI9341_DispStringLine_EN(LINE(2),LCDTemp); 
+			ILI9341_DisplayStringEx(6,1*24,48,48,(uint8_t *)LCDTemp,0);
 #endif
 			
 			// 打印时间
@@ -104,16 +109,18 @@ void RTC_TimeAndDate_Show(void)
 			RTC_TimeStructure.Seconds);
 			
 			//液晶显示时间
-			sprintf(LCDTemp,"The Time :  %0.2d:%0.2d:%0.2d", 
+			sprintf(LCDTemp,"%0.2d:%0.2d:%0.2d", 
 			RTC_TimeStructure.Hours, 
 			RTC_TimeStructure.Minutes, 
 			RTC_TimeStructure.Seconds);
 #ifdef USE_LCD_DISPLAY
-			ILI9341_DispStringLine_EN(LINE(5),LCDTemp); 
+//			ILI9341_DispStringLine_EN(LINE(5),LCDTemp);
+		ILI9341_DisplayStringEx(1*48+6,1*48+24,48,48,(uint8_t *)LCDTemp,0);
 #endif	
 		}
 		Rtctmp = RTC_TimeStructure.Seconds;
-	}	
+
+}	
 }
 
 /**
