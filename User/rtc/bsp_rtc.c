@@ -62,18 +62,15 @@ void RTC_CalendarConfig(void)
   * @param  无
   * @retval 无
   */
+
+
+
 void RTC_TimeAndDate_Show(void)
 {
 	uint8_t Rtctmp=0;
 	char LCDTemp[100];
 	RTC_TimeTypeDef RTC_TimeStructure;
 	RTC_DateTypeDef RTC_DateStructure;
-	
-	LCD_SetFont(&Font8x16);
-	LCD_SetTextColor(WHITE);
-	ILI9341_Clear(0,0,LCD_X_LENGTH,LCD_Y_LENGTH);
-	
-	while(1){
 
 		// 获取日历
 		HAL_RTC_GetTime(&Rtc_Handle, &RTC_TimeStructure, RTC_FORMAT_BIN);
@@ -121,7 +118,7 @@ void RTC_TimeAndDate_Show(void)
 		Rtctmp = RTC_TimeStructure.Seconds;
 
 }	
-}
+
 
 /**
   * @brief  RTC配置：选择RTC时钟源，设置RTC_CLK的分频系数

@@ -65,7 +65,9 @@ int main(void)
   }
   else
 	{
-    RTC_CalendarConfig();
+		//init the date and time.
+    //RTC_CalendarConfig();
+		
 		/* 检查是否电源复位 */
 		if (__HAL_RCC_GET_FLAG(RCC_FLAG_PORRST) != RESET)
 		{
@@ -79,11 +81,20 @@ int main(void)
 		/* Clear source Reset Flag */
     __HAL_RCC_CLEAR_RESET_FLAGS();
 	} 
-	/* 显示时间和日期 */
 	
+	/*init*/
+	
+	LCD_SetFont(&Font8x16);
+	LCD_SetTextColor(WHITE);
+	ILI9341_Clear(0,0,LCD_X_LENGTH,LCD_Y_LENGTH);
+	
+	while(1){
+			/* 显示时间和日期 */
 	RTC_TimeAndDate_Show();
-	
-	
+	//if(1){
+	//Rtc_Handle.DateToUpdate.Date++;
+	//}
+}
 	
 	
 	
