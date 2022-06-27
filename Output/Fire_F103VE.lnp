@@ -53,6 +53,8 @@
 "..\output\bsp_ili9341_lcd.o"
 "..\output\bsp_rtc.o"
 "..\output\bsp_debug_usart.o"
+"..\output\bsp_key.o"
+"..\output\wind.o"
 --library_type=microlib --strict --scatter "..\Output\Fire_F103VE.sct"
 --summary_stderr --info summarysizes --map --load_addr_map_info --xref --callgraph --symbols
 --info sizes --info totals --info unused --info veneers

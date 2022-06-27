@@ -50,7 +50,7 @@ extern uint16_t LCD_X_LENGTH,LCD_Y_LENGTH;
 extern uint8_t LCD_SCAN_MODE;
 
 /******************************* 定义 ILI934 显示屏常用颜色 ********************************/
-#define      BACKGROUND		                BLACK   //默认背景颜色
+#define      BACKGROUND		                CRAN   //默认背景颜色
 
 #define      WHITE		 		                  0xFFFF	   //白色
 #define      BLACK                         0x0000	   //黑色 

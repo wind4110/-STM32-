@@ -54,3 +54,7 @@
 ..\output\stm32f1xx_hal_rtc.o: ..\Libraries\STM32F1xx_HAL_Driver\Inc\stm32f1xx_ll_usb.h
 ..\output\stm32f1xx_hal_rtc.o: ..\Libraries\STM32F1xx_HAL_Driver\Inc\stm32f1xx_hal_pcd_ex.h
 ..\output\stm32f1xx_hal_rtc.o: ..\Libraries\STM32F1xx_HAL_Driver\Inc\stm32f1xx_hal_hcd.h
+..\output\stm32f1xx_hal_rtc.o: ..\User\.\key\bsp_key.h
+..\output\stm32f1xx_hal_rtc.o: ..\User\main.h
+..\output\stm32f1xx_hal_rtc.o: ..\User\./led/bsp_led.h
+..\output\stm32f1xx_hal_rtc.o: ..\User\.\wind\wind.h
