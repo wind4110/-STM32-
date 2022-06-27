@@ -669,6 +669,16 @@
               <FileType>1</FileType>
               <FilePath>..\User\usart\bsp_debug_usart.c</FilePath>
             </File>
+            <File>
+              <FileName>bsp_key.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\User\key\bsp_key.c</FilePath>
+            </File>
+            <File>
+              <FileName>wind.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\User\wind\wind.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>

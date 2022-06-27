@@ -15,21 +15,13 @@
   ******************************************************************************
   */ 
 
-
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
 #include "stm32f1xx.h"
-#include "./usart/bsp_debug_usart.h"
-#include <stdlib.h>
-#include "./led/bsp_led.h" 
-#include "./lcd/bsp_ili9341_lcd.h"
-#include "./flash/bsp_spi_flash.h"
-#include "./RTC/bsp_rtc.h"
+#include "./led/bsp_led.h"
 #include ".\key\bsp_key.h" 
-#include "./wind/wind.h"
 
-int Wind_flag = 0;
-
+#define increaseI i = i == 3 ? 0 : i + 1
 /**
   * @brief  主函数
   * @param  无
@@ -37,79 +29,50 @@ int Wind_flag = 0;
   */
 int main(void)
 {
-  /* 系统时钟初始化成72MHz */
+	int i =0;
+  /* 系统时钟初始化成72 MHz */
   SystemClock_Config();
-  /* LED 端口初始化 */
-  LED_GPIO_Config();
- /* 串口初始化 */
-  DEBUG_USART_Config();
-
-  printf("\n\r这是一个RTC日历实验 \r\n");
-
-#ifdef USE_LCD_DISPLAY	
-	/*=========================液晶初始化开始===============================*/
-	ILI9341_Init();         //LCD 初始化
-
-	//其中0、3、5、6 模式适合从左至右显示文字，
-	//不推荐使用其它模式显示文字	其它模式显示文字会有镜像效果			
-	//其中 6 模式为大部分液晶例程的默认显示方向  
-  ILI9341_GramScan ( 3 );
-  /*=========================液晶初始化结束===============================*/
-#endif	
- /*##-1- Configure the RTC peripheral #######################################*/
-  /*配置RTC预分频器和RTC数据寄存器 */
-  /*Asynch Prediv  = 由HAL自动计算 */
-  Rtc_Handle.Instance = RTC; 
-  Rtc_Handle.Init.AsynchPrediv = RTC_AUTO_1_SECOND;
-
-	 if (HAL_RTC_Init(&Rtc_Handle) != HAL_OK)
-  {
-    /* Initialization Error */
-    printf("\r\n RTC初始化失败\r\n");;
-  }
-  else
-	{
-		/*init the date and time.*/
-    /*RTC_CalendarConfig();*/
+	/* LED 端口初始化 */
+	LED_GPIO_Config();	 
+  
+    /*初始化按键*/
+    Key_GPIO_Config();
+	
+ 
+	/* 轮询按键状态，若按键按下则反转LED */ 
+	while(1)                            
+	{	   
 		
-		/* 检查是否电源复位 */
-		if (__HAL_RCC_GET_FLAG(RCC_FLAG_PORRST) != RESET)
+		 if (i == 1)
+    {
+      LED1_ON;
+      LED2_OFF;
+      LED3_OFF;
+    }
+    else if (i == 2)
+    {
+      LED1_OFF;
+      LED2_ON;
+      LED3_OFF;
+    }
+    else
+    {
+      LED1_OFF;
+      LED2_OFF;
+      LED3_ON;
+    }
+		
+		if( Key_Scan(KEY1_GPIO_PORT,KEY1_PIN) == KEY_ON  )
 		{
-		  printf("\r\n 发生电源复位....\r\n");
-		}
-		/* 检查是否外部复位 */
-		else if (__HAL_RCC_GET_FLAG(RCC_FLAG_PINRST) != RESET)
+			/*LED1反转*/
+			LED1_TOGGLE;
+		}   
+    
+    if( Key_Scan(KEY2_GPIO_PORT,KEY2_PIN) == KEY_ON  )
 		{
-		  printf("\r\n 发生外部复位....\r\n");
-		}
-		/* Clear source Reset Flag */
-    __HAL_RCC_CLEAR_RESET_FLAGS();
-	} 
-	
-	/*key init*/
-	
-	 Key_GPIO_Config();
-	
-	/*init*/
-	
-	LCD_SetFont(&Font8x16);
-	LCD_SetTextColor(WHITE);
-	ILI9341_Clear(0,0,LCD_X_LENGTH,LCD_Y_LENGTH);
-	
-	while(1){
-			/* 显示时间和日期 
-		RTC_TimeAndDate_Show();*/
-
-		
-    Wind_TimeShow();
-		
-		if( Key_Scan(KEY1_GPIO_PORT,KEY1_PIN) == KEY_ON ){
-				LED1_TOGGLE;
-        Wind_DateIn();
-		}
-		
+			increaseI;
+		}   
 	}
-	
 }
 
 /**
@@ -122,9 +85,9 @@ int main(void)
   *            APB1 Prescaler                 = 2
   *            APB2 Prescaler                 = 1
   *            HSE Frequency(Hz)              = 8000000
-  *            HSE PREDIV1                    = 2
+  *            HSE PREDIV1                    = 1
   *            PLLMUL                         = 9
-  *            Flash Latency(WS)              = 0
+  *            Flash Latency(WS)              = 2
   * @param  None
   * @retval None
   */
@@ -160,6 +123,4 @@ void SystemClock_Config(void)
   }
 }
 
-
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
-

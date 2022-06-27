@@ -19,9 +19,9 @@ extern RTC_HandleTypeDef Rtc_Handle;
 
 // 日期宏定义  其中WEEKDAY为无效宏定义，只要给出年月日，HAL库会自动计算出 WEEKDAY
 #define WEEKDAY                   6           // 1~7
-#define DATE                      0x25        // 1~31
-#define MONTH                     0x6        // 1~12
-#define YEAR                      0x22        // 0~99
+#define DATE                      0x1        // 1~31
+#define MONTH                     0x1        // 1~12
+#define YEAR                      0x0        // 0~99
 
 // 备份域寄存器宏定义
 #define RTC_BKP_DRX          RTC_BKP_DR1

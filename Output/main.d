@@ -63,3 +63,5 @@
 ..\output\main.o: ..\User\./font/fonts.h
 ..\output\main.o: ..\User\./flash/bsp_spi_flash.h
 ..\output\main.o: ..\User\./RTC/bsp_rtc.h
+..\output\main.o: ..\User\.\key\bsp_key.h
+..\output\main.o: ..\User\./wind/wind.h
