@@ -27,6 +27,8 @@
 #include "./RTC/bsp_rtc.h"
 #include ".\key\bsp_key.h" 
 #include "./wind/wind.h"
+#include "./beep/bsp_beep.h"   
+
 
 /**
   * @brief  主函数
@@ -42,6 +44,8 @@ int main(void)
   LED_GPIO_Config();
  /* 串口初始化 */
   DEBUG_USART_Config();
+	
+	BEEP_GPIO_Config();
 
   printf("\n\r这是一个RTC日历实验 \r\n");
 
@@ -91,32 +95,41 @@ int main(void)
 	
 	/*init*/
 	
-	LCD_SetFont(&Font8x16);
+	LCD_SetFont(&Font24x32);
 	LCD_SetTextColor(WHITE);
 	ILI9341_Clear(0,0,LCD_X_LENGTH,LCD_Y_LENGTH);
 	
 	while(1){
-			/* 显示时间和日期 
-		RTC_TimeAndDate_Show();*/
-
+		
 		if(Wind_state == Wind_SHOW)
+		{
+			  LED_RED;
         Wind_TimeShow();
+		}
 		else if (Wind_state == Wind_CHANGE)
 		{
+				LED_GREEN;
 			  if( Key_Scan(KEY2_GPIO_PORT,KEY2_PIN) == KEY_ON){
 				    Wind_MinIn(&minutes);
 						//Wind_HourIn(&hours);
 				    Wind_SetTime(hours,minutes);
 		     }
+				Wind_ChangesIs(&hours , &minutes);
 				Wind_ChangeShow(hours,minutes);
-		     
+		}
+		else if ( Wind_state == Wind_ALARM)
+		{
+			LED_BLUE;
+			Wind_AlarmShow(Alarmhour,Alarmmin);
+			 if( Key_Scan(KEY2_GPIO_PORT,KEY2_PIN) == KEY_ON){
+				    Wind_MinIn(&Alarmmin);
+						//Wind_HourIn(&Alarmhour);
+				    Wind_SetAlarm(Alarmhour,Alarmmin);
+		    }
 		}
 		
 		if( Key_Scan(KEY1_GPIO_PORT,KEY1_PIN) == KEY_ON ){
-				LED1_TOGGLE;
         Wind_ChangeState();
-			if (Wind_state == Wind_CHANGE)
-         Wind_ChangesIs(&hours , &minutes);
 		}
 	}
 }

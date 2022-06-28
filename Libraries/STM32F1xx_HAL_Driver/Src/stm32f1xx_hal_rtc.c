@@ -635,8 +635,6 @@ HAL_StatusTypeDef HAL_RTC_GetTime(RTC_HandleTypeDef *hrtc, RTC_TimeTypeDef *sTim
     counter_time -= (days_elapsed * 24U * 3600U);
 		
 		
-		
-		
     /* Write time counter in RTC registers */
     if (RTC_WriteTimeCounter(hrtc, counter_time) != HAL_OK)
     {
