@@ -1,9 +1,24 @@
 #ifndef _WIND_H_
 #define _WIND_H_
 
-extern int Wind_flag;
+#define Wind_SHOW 0
+#define Wind_CHANGE 1
 
-void Wind_DateIn(void);
+extern int Wind_state;
+extern int hours;
+extern int minutes;
+
+int Wind_RAX(int minutes);
+
+void Wind_ChangesIs(int *hours , int *minutes);
+
+void Wind_ChangeState(void);
+
+void Wind_ChangeShow(int hours , int minutes);
+
+void Wind_SetTime(int hours, int minutes);
+
+void Wind_MinIn(int *minutes);
 
 void Wind_TimeShow(void);
 

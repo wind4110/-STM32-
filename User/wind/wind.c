@@ -4,26 +4,78 @@
 #include "./lcd/bsp_ili9341_lcd.h"
 #include "./wind/wind.h"
 
-void Wind_DateIn()
+int Wind_state = Wind_SHOW;
+int minutes;
+int hours;
+
+int Wind_RAX(int minutes)
 {
-	RTC_DateTypeDef sdatestructure;
-	RTC_TimeTypeDef stimestructure;
+    return minutes / 10 * 16 + minutes % 10;
+}
+
+void Wind_ChangeState()
+{
+	Wind_state = Wind_state==Wind_SHOW ? Wind_CHANGE : Wind_SHOW;
+}
+
+void Wind_ChangesIs(int *hours , int *minutes)
+{
+		RTC_TimeTypeDef RTC_TimeStructure;
+
+		// 获取日历
+		HAL_RTC_GetTime(&Rtc_Handle, &RTC_TimeStructure, RTC_FORMAT_BIN);
+		*hours = RTC_TimeStructure.Hours;
+		*minutes = RTC_TimeStructure.Minutes;
+}
+
+void Wind_ChangeShow(int hours , int minutes)
+{
+		char LCDTemp[100];
+			//液晶显示时间
+			sprintf(LCDTemp,"%0.2d:%0.2d", 
+			hours, 
+			minutes);
+	ILI9341_DisplayStringEx(0*48+5 ,0*48+5,125,125,( uint8_t *)LCDTemp,0);		
+  ILI9341_DisplayStringEx( 5 ,4*48+20,20,20,(uint8_t *)"minutes change",0);	
 	
+}
+
+void Wind_MinIn(int *minutes)
+{
+//	if(*minutes % 16 < 9)
+//		(*minutes)++;
+//	else
+//	{
+//		if(*minutes < 0x59)
+//		(*minutes) = ((*minutes) /16 +1)*16;
+//		else
+//		(*minutes) = 0;
+//	}
+	if(*minutes  < 59)
+		(*minutes)++;
+	else 
+      *minutes = 0;
+}
+
+
+
+void Wind_SetTime(int hours, int minutes)
+{
+	char LCDTemp[100];
 	RTC_TimeTypeDef RTC_TimeStructure;
-	RTC_DateTypeDef RTC_DateStructure;
+	 
+	RTC_TimeStructure.Minutes = minutes;
+  RTC_TimeStructure.Hours = hours;
+	
+	sprintf(LCDTemp,"%0.2d:%0.2d", 
+			RTC_TimeStructure.Hours, 
+			RTC_TimeStructure.Minutes);
+	ILI9341_DisplayStringEx(0*48+5 ,2*48+5,125,125,(uint8_t *)LCDTemp,0);
+	
+	RTC_TimeStructure.Minutes = Wind_RAX(minutes);
+	
+	HAL_RTC_SetTime(&Rtc_Handle,&RTC_TimeStructure, RTC_FORMAT_BCD);
 
-	// 获取日历
-	HAL_RTC_GetTime(&Rtc_Handle, &RTC_TimeStructure, RTC_FORMAT_BIN);
-	HAL_RTC_GetDate(&Rtc_Handle, &RTC_DateStructure, RTC_FORMAT_BIN);
-	
-	 sdatestructure = RTC_DateStructure;
-	 stimestructure = RTC_TimeStructure;
-
-	sdatestructure.Date += 0x02U;
-	
-//	HAL_RTC_SetTime(&Rtc_Handle,&stimestructure, RTC_FORMAT_BCD);
-	HAL_RTC_SetDate(&Rtc_Handle,&sdatestructure,RTC_FORMAT_BCD);
-	
 	HAL_RTCEx_BKUPWrite(&Rtc_Handle,RTC_BKP_DRX,RTC_BKP_DATA);
 	
 }

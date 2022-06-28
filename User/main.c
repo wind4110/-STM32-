@@ -28,13 +28,12 @@
 #include ".\key\bsp_key.h" 
 #include "./wind/wind.h"
 
-int Wind_flag = 0;
-
 /**
   * @brief  主函数
   * @param  无
   * @retval 无
   */
+	
 int main(void)
 {
   /* 系统时钟初始化成72MHz */
@@ -65,7 +64,7 @@ int main(void)
 	 if (HAL_RTC_Init(&Rtc_Handle) != HAL_OK)
   {
     /* Initialization Error */
-    printf("\r\n RTC初始化失败\r\n");;
+    printf("\r\n RTC初始化失败\r\n");
   }
   else
 	{
@@ -100,17 +99,32 @@ int main(void)
 			/* 显示时间和日期 
 		RTC_TimeAndDate_Show();*/
 
+		if(Wind_state == Wind_SHOW)
+        Wind_TimeShow();
+		else if (Wind_state == Wind_CHANGE)
+		{
+			  if( Key_Scan(KEY2_GPIO_PORT,KEY2_PIN) == KEY_ON){
+				    Wind_MinIn(&minutes);
+				    Wind_SetTime(hours,minutes);
+		     }
+				Wind_ChangeShow(hours,minutes);
+		     
+		}
 		
-    Wind_TimeShow();
+		
 		
 		if( Key_Scan(KEY1_GPIO_PORT,KEY1_PIN) == KEY_ON ){
 				LED1_TOGGLE;
-        Wind_DateIn();
+        Wind_ChangeState();
+			if (Wind_state == Wind_CHANGE)
+         Wind_ChangesIs(&hours , &minutes);
 		}
-		
 	}
-	
 }
+
+	
+
+
 
 /**
   * @brief  System Clock Configuration
