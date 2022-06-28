@@ -7,6 +7,8 @@
 int Wind_state = Wind_SHOW;
 int minutes;
 int hours;
+int Alarmmin;
+int Alarmhour;
 
 int Wind_RAX(int minutes)
 {
@@ -36,27 +38,25 @@ void Wind_ChangeShow(int hours , int minutes)
 			hours, 
 			minutes);
 	ILI9341_DisplayStringEx(0*48+5 ,0*48+5,125,125,( uint8_t *)LCDTemp,0);		
-  ILI9341_DisplayStringEx( 5 ,4*48+20,20,20,(uint8_t *)"minutes change",0);	
+  ILI9341_DisplayStringEx( 5 ,4*48+20,20,20,(uint8_t *)"Time Set",0);	
 	
 }
 
 void Wind_MinIn(int *minutes)
 {
-//	if(*minutes % 16 < 9)
-//		(*minutes)++;
-//	else
-//	{
-//		if(*minutes < 0x59)
-//		(*minutes) = ((*minutes) /16 +1)*16;
-//		else
-//		(*minutes) = 0;
-//	}
 	if(*minutes  < 59)
 		(*minutes)++;
 	else 
       *minutes = 0;
 }
 
+void Wind_HourIn(int *hours)
+{
+	if(*hours < 23)
+		(*hours)++;
+	else
+		*hours = 0;
+}
 
 
 void Wind_SetTime(int hours, int minutes)
@@ -67,12 +67,14 @@ void Wind_SetTime(int hours, int minutes)
 	RTC_TimeStructure.Minutes = minutes;
   RTC_TimeStructure.Hours = hours;
 	
+	#ifdef _WIND_DEBUG_SETTIME_
 	sprintf(LCDTemp,"%0.2d:%0.2d", 
 			RTC_TimeStructure.Hours, 
 			RTC_TimeStructure.Minutes);
 	ILI9341_DisplayStringEx(0*48+5 ,2*48+5,125,125,(uint8_t *)LCDTemp,0);
-	
+	#endif
 	RTC_TimeStructure.Minutes = Wind_RAX(minutes);
+	RTC_TimeStructure.Hours = Wind_RAX(hours);
 	
 	HAL_RTC_SetTime(&Rtc_Handle,&RTC_TimeStructure, RTC_FORMAT_BCD);
 

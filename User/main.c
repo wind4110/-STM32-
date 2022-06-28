@@ -105,13 +105,12 @@ int main(void)
 		{
 			  if( Key_Scan(KEY2_GPIO_PORT,KEY2_PIN) == KEY_ON){
 				    Wind_MinIn(&minutes);
+						//Wind_HourIn(&hours);
 				    Wind_SetTime(hours,minutes);
 		     }
 				Wind_ChangeShow(hours,minutes);
 		     
 		}
-		
-		
 		
 		if( Key_Scan(KEY1_GPIO_PORT,KEY1_PIN) == KEY_ON ){
 				LED1_TOGGLE;

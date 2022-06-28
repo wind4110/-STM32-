@@ -7,6 +7,9 @@
 extern int Wind_state;
 extern int hours;
 extern int minutes;
+extern int Alarmmin;
+extern int Alarmhour;
+
 
 int Wind_RAX(int minutes);
 
@@ -19,6 +22,8 @@ void Wind_ChangeShow(int hours , int minutes);
 void Wind_SetTime(int hours, int minutes);
 
 void Wind_MinIn(int *minutes);
+
+void Wind_HourIn(int *hours);
 
 void Wind_TimeShow(void);
 
