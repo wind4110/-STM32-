@@ -28,6 +28,7 @@
 #include ".\key\bsp_key.h" 
 #include "./wind/wind.h"
 #include "./beep/bsp_beep.h"   
+#include "./myfonts/myfonts.h"
 
 
 /**
@@ -75,6 +76,8 @@ int main(void)
 		/*init the date and time.*/
     /*RTC_CalendarConfig();*/
 		
+		RTC_AlarmSet();
+		
 		/* 检查是否电源复位 */
 		if (__HAL_RCC_GET_FLAG(RCC_FLAG_PORRST) != RESET)
 		{
@@ -101,6 +104,8 @@ int main(void)
 	
 	while(1){
 		
+//		ILI9341_DisplayStringEx( 5 ,3*48+20,20,20,(uint8_t *)f_A,0);	
+		
 		if(Wind_state == Wind_SHOW)
 		{
 			  LED_RED;
@@ -120,12 +125,13 @@ int main(void)
 		else if ( Wind_state == Wind_ALARM)
 		{
 			LED_BLUE;
-			Wind_AlarmShow(Alarmhour,Alarmmin);
 			 if( Key_Scan(KEY2_GPIO_PORT,KEY2_PIN) == KEY_ON){
-				    Wind_MinIn(&Alarmmin);
-						//Wind_HourIn(&Alarmhour);
+				      Wind_MinIn(&Alarmmin);
+//						Wind_HourIn(&Alarmhour);
 				    Wind_SetAlarm(Alarmhour,Alarmmin);
 		    }
+			 Wind_AlarmIs(&Alarmhour , &Alarmmin);
+			Wind_AlarmShow(Alarmhour,Alarmmin);
 		}
 		
 		if( Key_Scan(KEY1_GPIO_PORT,KEY1_PIN) == KEY_ON ){

@@ -66,3 +66,4 @@
 ..\output\main.o: ..\User\.\key\bsp_key.h
 ..\output\main.o: ..\User\./wind/wind.h
 ..\output\main.o: ..\User\./beep/bsp_beep.h
+..\output\main.o: ..\User\./myfonts/myfonts.h

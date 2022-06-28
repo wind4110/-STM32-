@@ -19,6 +19,7 @@
 #include "./lcd/bsp_ili9341_lcd.h"
 
 RTC_HandleTypeDef Rtc_Handle;
+__IO uint8_t Alarmflag = 0;
 
 /**
   * @brief  设置时间和日期
@@ -54,7 +55,7 @@ void RTC_CalendarConfig(void)
   }
 
   /* 在RTC备份数据Register1中写入数据 */
-  HAL_RTCEx_BKUPWrite(&Rtc_Handle,RTC_BKP_DRX,RTC_BKP_DATA);
+//  HAL_RTCEx_BKUPWrite(&Rtc_Handle,RTC_BKP_DRX,RTC_BKP_DATA);
 }
 
 /**
@@ -62,8 +63,6 @@ void RTC_CalendarConfig(void)
   * @param  无
   * @retval 无
   */
-
-
 
 void RTC_TimeAndDate_Show(void)
 {
@@ -163,6 +162,32 @@ void HAL_RTC_MspInit(RTC_HandleTypeDef *hrtc)
   /* Enable RTC Clock */
   __HAL_RCC_RTC_ENABLE();
 
+}
+
+/**
+  * @brief   要使能 RTC 闹钟中断，需按照以下顺序操作：
+             1. 配置 NVIC 中的 RTC_Alarm IRQ 通道并将其使能。
+             2. 配置 RTC 以生成 RTC 闹钟（闹钟 A 或闹钟 B）。
+  * @param  无
+  * @retval 无
+  */
+void RTC_AlarmSet(void)
+{
+    RTC_AlarmTypeDef  RTC_AlarmStructure;
+
+    /* RTC 闹钟中断配置 */
+    HAL_NVIC_SetPriority(RTC_Alarm_IRQn, 1, 0);
+    /* 使能RTC闹钟中断 */
+    HAL_NVIC_EnableIRQ(RTC_Alarm_IRQn);
+
+    /* 设置闹钟时间 */
+    RTC_AlarmStructure.Alarm = RTC_Alarm_X;
+  
+    RTC_AlarmStructure.AlarmTime.Hours   = ALARM_HOURS;
+    RTC_AlarmStructure.AlarmTime.Minutes = ALARM_MINUTES;
+    RTC_AlarmStructure.AlarmTime.Seconds = ALARM_SECONDS;
+  
+    HAL_RTC_SetAlarm_IT(&Rtc_Handle,&RTC_AlarmStructure, RTC_FORMAT_BCD); 
 }
 
 /**********************************END OF FILE*************************************/

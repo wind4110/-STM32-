@@ -57,3 +57,4 @@
 ..\output\stm32f1xx_it.o: ..\Libraries\STM32F1xx_HAL_Driver\Inc\stm32f1xx_hal_hcd.h
 ..\output\stm32f1xx_it.o: ..\User\stm32f1xx_it.h
 ..\output\stm32f1xx_it.o: ..\User\./usart/bsp_debug_usart.h
+..\output\stm32f1xx_it.o: ..\User\./rtc/bsp_rtc.h

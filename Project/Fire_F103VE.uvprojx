@@ -684,6 +684,11 @@
               <FileType>1</FileType>
               <FilePath>..\User\beep\bsp_beep.c</FilePath>
             </File>
+            <File>
+              <FileName>myfonts.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\User\myfonts\myfonts.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>

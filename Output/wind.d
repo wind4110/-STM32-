@@ -60,3 +60,5 @@
 ..\output\wind.o: ..\User\./font/fonts.h
 ..\output\wind.o: ..\User\./font/fonts.h
 ..\output\wind.o: ..\User\./wind/wind.h
+..\output\wind.o: ..\User\./myfonts/myfonts.h
+..\output\wind.o: ..\User\./beep/bsp_beep.h

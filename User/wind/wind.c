@@ -3,6 +3,8 @@
 #include "./usart/bsp_debug_usart.h"
 #include "./lcd/bsp_ili9341_lcd.h"
 #include "./wind/wind.h"
+#include "./myfonts/myfonts.h"
+#include "./beep/bsp_beep.h"   
 
 int Wind_state = Wind_SHOW;
 int minutes;
@@ -88,7 +90,7 @@ void Wind_SetTime(int hours, int minutes)
 	
 	HAL_RTC_SetTime(&Rtc_Handle,&RTC_TimeStructure, RTC_FORMAT_BIN);
 
-	HAL_RTCEx_BKUPWrite(&Rtc_Handle,RTC_BKP_DRX,RTC_BKP_DATA);
+//	HAL_RTCEx_BKUPWrite(&Rtc_Handle,RTC_BKP_DRX,RTC_BKP_DATA);
 	
 }
 
@@ -97,7 +99,7 @@ void Wind_TimeShow()
 	uint8_t Rtctmp=0;
 	char LCDTemp[100];
 	RTC_TimeTypeDef RTC_TimeStructure;
-
+	
 		// 获取日历
 		HAL_RTC_GetTime(&Rtc_Handle, &RTC_TimeStructure, RTC_FORMAT_BIN);
 			
@@ -114,7 +116,17 @@ void Wind_TimeShow()
 		}
 		Rtctmp = RTC_TimeStructure.Seconds;
 		
+		sprintf(LCDTemp,"%0.2d", 
+			RTC_TimeStructure.Seconds);
+		ILI9341_DisplayStringEx(0*48+5 ,3*48+5,20,20,(uint8_t *)LCDTemp,0);
+		
 		ILI9341_DisplayStringEx( 5 ,4*48+20,20,20,(uint8_t *)"Time view",0);
+		
+		if(Alarmflag == 1)
+		{
+			BEEP_ON;
+			Alarmflag = 0;
+		}
 	
 }
 
@@ -125,8 +137,9 @@ void Wind_AlarmIs(int *Alarmhour , int *Alarmmin)
 {
 	 RTC_AlarmTypeDef sAlarm;
 	
-   HAL_RTC_GetAlarm(&Rtc_Handle, &sAlarm, RTC_ALARM_A, RTC_FORMAT_BIN);
-	 *Alarmhour = sAlarm.AlarmTime.Hours;
+//	 HAL_RTCEx_BKUPRead(&Rtc_Handle, RTC_BKP_DRX);
+	 HAL_RTC_GetAlarm(&Rtc_Handle, &sAlarm, RTC_ALARM_A, RTC_FORMAT_BIN);
+	*Alarmhour = sAlarm.AlarmTime.Hours;
 	 *Alarmmin = sAlarm.AlarmTime.Minutes;
 }
 
@@ -145,17 +158,15 @@ void Wind_SetAlarm(int Alarmhour, int Alarmmin)
 {
 	RTC_AlarmTypeDef sAlarm;
 	
-	/* RTC 闹钟中断配置 */
-  HAL_NVIC_SetPriority(RTC_Alarm_IRQn, 1, 0);
-  /* 使能RTC闹钟中断 */
-  HAL_NVIC_EnableIRQ(RTC_Alarm_IRQn);
-	
 	sAlarm.Alarm = RTC_ALARM_A;
 	
 	sAlarm.AlarmTime.Hours = Alarmhour;
 	sAlarm.AlarmTime.Minutes = Alarmmin;
 	sAlarm.AlarmTime.Seconds = 0x0U;
+	
 	HAL_RTC_SetAlarm_IT(&Rtc_Handle, &sAlarm, RTC_FORMAT_BIN);
+
+//	HAL_RTCEx_BKUPWrite(&Rtc_Handle,RTC_BKP_DRX,RTC_BKP_DATA);
 	
 }
 

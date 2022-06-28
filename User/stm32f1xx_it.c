@@ -39,6 +39,7 @@
 #include "main.h"
 #include "stm32f1xx_it.h"
 #include "./usart/bsp_debug_usart.h"
+#include "./rtc/bsp_rtc.h"
 
 /** @addtogroup STM32F4xx_HAL_Examples
   * @{
@@ -164,14 +165,24 @@ void SysTick_Handler(void)
 /*  file (startup_stm32f4xx.s).                                               */
 /******************************************************************************/
 
-/**
-  * @brief  This function handles External line 0 interrupt request.
+/* @brief  This function handles RTC Alarm interrupt request.
   * @param  None
   * @retval None
   */
-void EXTI0_IRQHandler(void)
+void RTC_Alarm_IRQHandler(void)
 {
-  
+  HAL_RTC_AlarmIRQHandler(&Rtc_Handle);
+}
+
+/**
+  * @brief  Alarm callback
+  * @param  hrtc : RTC handle
+  * @retval None
+  */
+void HAL_RTC_AlarmAEventCallback(RTC_HandleTypeDef *hrtc)
+{
+	/* 闹钟时间到，蜂鸣器标志位置1 */
+	Alarmflag = 1;
 }
 
 extern uint8_t Rxflag;
