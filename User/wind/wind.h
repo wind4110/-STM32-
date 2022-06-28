@@ -3,6 +3,8 @@
 
 #define Wind_SHOW 0
 #define Wind_CHANGE 1
+#define Wind_ALARM 2
+#define Wind_
 
 extern int Wind_state;
 extern int hours;
@@ -10,6 +12,11 @@ extern int minutes;
 extern int Alarmmin;
 extern int Alarmhour;
 
+void Wind_AlarmIs(int *hours , int *minutes);
+
+void Wind_AlarmShow(int Alarmhour, int Alarmmin);
+
+void Wind_SetAlarm(int Alarmhour, int Alarmmin);
 
 int Wind_RAX(int minutes);
 
