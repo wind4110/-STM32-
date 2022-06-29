@@ -27,11 +27,14 @@ Project File Date:  06/28/2022
 <h2>Output:</h2>
 *** Using Compiler 'V5.06 update 7 (build 960)', folder: 'C:\Keil_v5\ARM\ARM_Compiler_5.06u7\Bin'
 Build target 'ADC'
-compiling stm32f1xx_hal_rtc.c...
+compiling bsp_rtc.c...
+..\User\rtc\bsp_rtc.c(177): warning:  #550-D: variable "RTC_AlarmStructure"  was set but never used
+      RTC_AlarmTypeDef  RTC_AlarmStructure;
+..\User\rtc\bsp_rtc.c: 1 warning, 0 errors
 linking...
-Program Size: Code=12804 RO-data=15560 RW-data=88 ZI-data=18704  
+Program Size: Code=12508 RO-data=15560 RW-data=88 ZI-data=18704  
 FromELF: creating hex file...
-"..\Output\Fire_F103VE.axf" - 0 Error(s), 0 Warning(s).
+"..\Output\Fire_F103VE.axf" - 0 Error(s), 1 Warning(s).
 
 <h2>Software Packages used:</h2>
 

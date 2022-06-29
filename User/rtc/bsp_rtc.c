@@ -188,7 +188,7 @@ void RTC_AlarmSet(void)
     RTC_AlarmStructure.AlarmTime.Minutes = Alarmmin;
     RTC_AlarmStructure.AlarmTime.Seconds = ALARM_SECONDS;
   
-    HAL_RTC_SetAlarm_IT(&Rtc_Handle,&RTC_AlarmStructure, RTC_FORMAT_BCD); 
+    //HAL_RTC_SetAlarm(&Rtc_Handle,&RTC_AlarmStructure, RTC_FORMAT_BCD); 
 }
 
 /**********************************END OF FILE*************************************/

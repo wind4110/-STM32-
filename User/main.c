@@ -46,7 +46,7 @@ int main(void)
  /* 串口初始化 */
   DEBUG_USART_Config();
 	
-	BEEP_GPIO_Config();
+  BEEP_GPIO_Config();
 
   printf("\n\r这是一个RTC日历实验 \r\n");
 
@@ -76,9 +76,6 @@ int main(void)
 		/*init the date and time.*/
     /*RTC_CalendarConfig();*/
 		
-        Wind_AlarmIs(&Alarmhour , &Alarmmin);
-		RTC_AlarmSet();
-		
 		/* 检查是否电源复位 */
 		if (__HAL_RCC_GET_FLAG(RCC_FLAG_PORRST) != RESET)
 		{
@@ -103,18 +100,28 @@ int main(void)
 	LCD_SetTextColor(WHITE);
 	ILI9341_Clear(0,0,LCD_X_LENGTH,LCD_Y_LENGTH);
 	
-	while(1){
-        
-//		ILI9341_DisplayStringEx( 5 ,3*48+20,20,20,(uint8_t *)f_A,0);	
+    
+    /*alarm init*/
+    Wind_AlarmIs(&Alarmhour , &Alarmmin);
+    RTC_AlarmSet();
+    
+    
+    
+/*----------------------------------------------------------------------    
+************************ reaction program*******************************
+----------------------------------------------------------------------*/
+    
+    
+	while(1){	
 		
 		if(Wind_state == Wind_SHOW)
 		{
-			  LED_RED;
-        Wind_TimeShow();
+		   LED_RED;
+           Wind_TimeShow();
 		}
 		else if (Wind_state == Wind_CHANGE)
 		{
-				LED_GREEN;
+		    LED_GREEN;
 			  if( Key_Scan(KEY2_GPIO_PORT,KEY2_PIN) == KEY_ON){
 				    Wind_MinIn(&minutes);
 						//Wind_HourIn(&hours);
@@ -131,7 +138,7 @@ int main(void)
 						Wind_HourIn(&Alarmhour);
 				    Wind_SetAlarm(Alarmhour,Alarmmin);
 		    }
-			 Wind_AlarmIs(&Alarmhour , &Alarmmin);
+			Wind_AlarmIs(&Alarmhour , &Alarmmin);
 			Wind_AlarmShow(Alarmhour,Alarmmin);
 		}
 		
@@ -139,7 +146,6 @@ int main(void)
         Wind_ChangeState();
 		}
 	}
-    
 }
 
 	

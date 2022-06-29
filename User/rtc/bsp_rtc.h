@@ -26,8 +26,8 @@ extern __IO uint8_t Alarmflag ;
 #define YEAR                      0x0        // 0~99
 
 // 闹钟相关宏定义
-#define ALARM_HOURS             0x12         // 0~23
-#define ALARM_MINUTES           0x14          // 0~59
+#define ALARM_HOURS             0x00         // 0~23
+#define ALARM_MINUTES           0x00          // 0~59
 #define ALARM_SECONDS           0x0       // 0~59
 
 #define RTC_Alarm_X               RTC_ALARM_A
