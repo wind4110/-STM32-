@@ -59,3 +59,4 @@
 ..\output\bsp_rtc.o: ..\User\./lcd/bsp_ili9341_lcd.h
 ..\output\bsp_rtc.o: ..\User\./font/fonts.h
 ..\output\bsp_rtc.o: ..\User\./font/fonts.h
+..\output\bsp_rtc.o: ..\User\./wind/wind.h

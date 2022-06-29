@@ -17,6 +17,7 @@
 #include "./rtc/bsp_rtc.h"
 #include "./usart/bsp_debug_usart.h"
 #include "./lcd/bsp_ili9341_lcd.h"
+#include "./wind/wind.h"
 
 RTC_HandleTypeDef Rtc_Handle;
 __IO uint8_t Alarmflag = 0;
@@ -183,8 +184,8 @@ void RTC_AlarmSet(void)
     /* …Ë÷√ƒ÷÷” ±º‰ */
     RTC_AlarmStructure.Alarm = RTC_Alarm_X;
   
-    RTC_AlarmStructure.AlarmTime.Hours   = ALARM_HOURS;
-    RTC_AlarmStructure.AlarmTime.Minutes = ALARM_MINUTES;
+    RTC_AlarmStructure.AlarmTime.Hours   = Alarmhour;
+    RTC_AlarmStructure.AlarmTime.Minutes = Alarmmin;
     RTC_AlarmStructure.AlarmTime.Seconds = ALARM_SECONDS;
   
     HAL_RTC_SetAlarm_IT(&Rtc_Handle,&RTC_AlarmStructure, RTC_FORMAT_BCD); 

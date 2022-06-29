@@ -76,6 +76,7 @@ int main(void)
 		/*init the date and time.*/
     /*RTC_CalendarConfig();*/
 		
+        Wind_AlarmIs(&Alarmhour , &Alarmmin);
 		RTC_AlarmSet();
 		
 		/* 检查是否电源复位 */
@@ -103,7 +104,7 @@ int main(void)
 	ILI9341_Clear(0,0,LCD_X_LENGTH,LCD_Y_LENGTH);
 	
 	while(1){
-		
+        
 //		ILI9341_DisplayStringEx( 5 ,3*48+20,20,20,(uint8_t *)f_A,0);	
 		
 		if(Wind_state == Wind_SHOW)
@@ -126,8 +127,8 @@ int main(void)
 		{
 			LED_BLUE;
 			 if( Key_Scan(KEY2_GPIO_PORT,KEY2_PIN) == KEY_ON){
-				      Wind_MinIn(&Alarmmin);
-//						Wind_HourIn(&Alarmhour);
+// 				        Wind_MinIn(&Alarmmin);
+						Wind_HourIn(&Alarmhour);
 				    Wind_SetAlarm(Alarmhour,Alarmmin);
 		    }
 			 Wind_AlarmIs(&Alarmhour , &Alarmmin);
@@ -138,6 +139,7 @@ int main(void)
         Wind_ChangeState();
 		}
 	}
+    
 }
 
 	

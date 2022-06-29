@@ -139,7 +139,7 @@ void Wind_AlarmIs(int *Alarmhour , int *Alarmmin)
 	
 //	 HAL_RTCEx_BKUPRead(&Rtc_Handle, RTC_BKP_DRX);
 	 HAL_RTC_GetAlarm(&Rtc_Handle, &sAlarm, RTC_ALARM_A, RTC_FORMAT_BIN);
-	*Alarmhour = sAlarm.AlarmTime.Hours;
+	 *Alarmhour = sAlarm.AlarmTime.Hours;
 	 *Alarmmin = sAlarm.AlarmTime.Minutes;
 }
 
@@ -164,7 +164,7 @@ void Wind_SetAlarm(int Alarmhour, int Alarmmin)
 	sAlarm.AlarmTime.Minutes = Alarmmin;
 	sAlarm.AlarmTime.Seconds = 0x0U;
 	
-	HAL_RTC_SetAlarm_IT(&Rtc_Handle, &sAlarm, RTC_FORMAT_BIN);
+	HAL_RTC_SetAlarm(&Rtc_Handle, &sAlarm, RTC_FORMAT_BIN);
 
 //	HAL_RTCEx_BKUPWrite(&Rtc_Handle,RTC_BKP_DRX,RTC_BKP_DATA);
 	

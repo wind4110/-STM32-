@@ -933,7 +933,7 @@ HAL_StatusTypeDef HAL_RTC_SetAlarm(RTC_HandleTypeDef *hrtc, RTC_AlarmTypeDef *sA
 
   /* Write Alarm counter in RTC registers */
   if (RTC_WriteAlarmCounter(hrtc, counter_alarm) != HAL_OK)
-  {
+  {  
     /* Set RTC state */
     hrtc->State = HAL_RTC_STATE_ERROR;
     
@@ -947,7 +947,7 @@ HAL_StatusTypeDef HAL_RTC_SetAlarm(RTC_HandleTypeDef *hrtc, RTC_AlarmTypeDef *sA
     hrtc->State = HAL_RTC_STATE_READY;
   
    __HAL_UNLOCK(hrtc); 
-     
+      
    return HAL_OK;
   }
 }
