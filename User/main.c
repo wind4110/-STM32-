@@ -38,6 +38,7 @@ int detime,rtime;
 int main(void)
 {	
 	uint8_t key_val;
+    //int runled = 0;
 	
   /* LED 初始化 */
 	LED_GPIO_Config();
@@ -45,7 +46,7 @@ int main(void)
 	
     /* 蜂鸣器初始化 */
     BEEP_GPIO_Config();    
-       
+//       
     /* flash初始化 */
     SPI_FLASH_Init();
   
@@ -110,15 +111,13 @@ int main(void)
 	ILI9341_Clear(0,0,LCD_X_LENGTH,LCD_Y_LENGTH);
     
         /*alarm init*/
-    AlarmCount = Wind_ReadAlarm();
-    Alarmhour = AlarmCount / 60;
-    Alarmmin = AlarmCount % 60;
+    Wind_ReadAlarm(&Alarmhour,&Alarmmin);
 //    Alarmhour = 1;
 //    Alarmmin = 13;
     
     RTC_AlarmSet();
 	
-    SysTick->CTRL |=  SysTick_CTRL_ENABLE_Msk;
+//    SysTick->CTRL |=  SysTick_CTRL_ENABLE_Msk;
     
     		/*init the date and time.*/
 //    RTC_CalendarConfig();
@@ -131,8 +130,10 @@ int main(void)
             key_val = IrDa_Process();
             printf("\r\n key_val=%d \r\n",key_val);
             printf("\r\n 按键次数frame_cnt=%d \r\n",frame_cnt);
-            printf("\r\n 中断次数isr_cnt=%d \r\n",isr_cnt);
+            printf("\r\n 中断次数isr_cnt=%d \r\1  n",isr_cnt);
             
+            
+			Alarmflag = 0;
             
             if( key_val == 162 )
                 Wind_state = Wind_state == Wind_OFF ? Wind_SHOW : Wind_OFF;
@@ -143,25 +144,27 @@ int main(void)
             switch( key_val )
             {
                 case 0:  
-                    LED1_TOGGLE;
+                    //LED1_TOGGLE;
                     printf("\r\n key_val=%d \r\n",key_val);
                     printf("\r\n Error \r\n");
                     break;
                     
                 case 162:
-                    LED1_TOGGLE;
+                    //LED1_TOGGLE;
                     printf("\r\n key_val=%d \r\n",key_val);
                     printf("\r\n POWER \r\n");
                     break;
                     
                 case 226:
-                    LED1_TOGGLE;
+                    //LED1_TOGGLE;
+                    //runled = !runled;
                     printf("\r\n key_val=%d \r\n",key_val);
                     printf("\r\n MENU \r\n");
                     break;
                 
                 case 34:
-                    LED1_TOGGLE;
+                    //LED1_TOGGLE;
+                    Wind_alarmstate = Wind_alarmstate == 0 ? 1 : 0;
                     printf("\r\n key_val=%d \r\n",key_val);
                     printf("\r\n TEST \r\n");
                     break;
@@ -169,11 +172,11 @@ int main(void)
                 
             /********* “+”键  **********/
                 case 2:
-                    LED3_TOGGLE;
+                    //LED3_TOGGLE;
                     if (Wind_state == Wind_CHANGE)
                     {                      
                         if(Wind_loc == Wind_HOUR)
-                            Wind_MinIn(&hours,1);
+                            Wind_HourIn(&hours,1);
                         else
                             Wind_MinIn(&minutes,1);
                         Wind_SetTime(hours,minutes);
@@ -182,7 +185,7 @@ int main(void)
                     else if ( Wind_state == Wind_ALARM )
                     {       
                         if(Wind_loc == Wind_HOUR)
-                            Wind_MinIn(&Alarmhour,1);
+                            Wind_HourIn(&Alarmhour,1);
                         else
                             Wind_MinIn(&Alarmmin,1);
                         /*设置闹钟*/
@@ -195,13 +198,14 @@ int main(void)
                     break;
                 
                 case 194:
-                    LED1_TOGGLE;
+                    //LED1_TOGGLE;
+                    Wind_state = Wind_state == Wind_SHOW ?  Wind_ALARM : Wind_state - 1;
                     printf("\r\n key_val=%d \r\n",key_val);
                     printf("\r\n RETURN \r\n");
                     break;
                 
                 case 224:
-                    LED1_TOGGLE;
+                    //LED1_TOGGLE;
                     
                     Wind_ChangeLoc();
                     
@@ -213,14 +217,14 @@ int main(void)
                 
                 /*播放键*/
                 case 168:
-                    LED2_TOGGLE;
+                    //LED2_TOGGLE;
                     Wind_ChangeState();
                     printf("\r\n key_val=%d \r\n",key_val);
                     printf("\r\n > \r\n");
                     break;
                 
                 case 144:
-                  LED1_TOGGLE;
+                  //LED1_TOGGLE;
                   
                   Wind_ChangeLoc();
                 
@@ -229,18 +233,18 @@ int main(void)
                 break;
                 
                 case 104:
-                  LED1_TOGGLE;
+                  //LED1_TOGGLE;
                   printf("\r\n key_val=%d \r\n",key_val);
                   printf("\r\n 0 \r\n");
                 break;
                 
                 /*“-”键*/
                 case 152:
-                  LED1_TOGGLE;
+                  //LED1_TOGGLE;
                 if (Wind_state == Wind_CHANGE)
                     {                      
                         if(Wind_loc == Wind_HOUR)
-                            Wind_MinIn(&hours,0);
+                            Wind_HourIn(&hours,0);
                         else
                             Wind_MinIn(&minutes,0);
                         Wind_SetTime(hours,minutes);
@@ -249,7 +253,7 @@ int main(void)
                     else if ( Wind_state == Wind_ALARM )
                     {       
                         if(Wind_loc == Wind_HOUR)
-                            Wind_MinIn(&Alarmhour,0);
+                            Wind_HourIn(&Alarmhour,0);
                         else
                             Wind_MinIn(&Alarmmin,0);
                                        
@@ -262,61 +266,81 @@ int main(void)
                 break;
                 
                 case 176:
-                  LED1_TOGGLE;
+                  //LED1_TOGGLE;
+                if (Wind_state == Wind_CHANGE)
+                    {                      
+                        if(Wind_loc == Wind_HOUR)
+                            hours = 0;
+                        else
+                            minutes = 0;
+                        Wind_SetTime(hours,minutes);
+                        Wind_ChangesIs(&hours , &minutes);
+                    }
+                    else if ( Wind_state == Wind_ALARM )
+                    {       
+                        if(Wind_loc == Wind_HOUR)
+                            Alarmhour = 0;
+                        else
+                            Alarmmin = 0;
+                                       
+                        /*设置闹钟*/
+                        Wind_SetAlarm(Alarmhour,Alarmmin);                            
+                    }
+                
                   printf("\r\n key_val=%d \r\n",key_val);
                   printf("\r\n C \r\n");
                 break;
                 
                 case 48:
-                  LED1_TOGGLE;
+                  //LED1_TOGGLE;
                   printf("\r\n key_val=%d \r\n",key_val);
                   printf("\r\n 1 \r\n");
                 break;
                 
                 case 24:
-                  LED1_TOGGLE;
+                  //LED1_TOGGLE;
                   printf("\r\n key_val=%d \r\n",key_val);
                   printf("\r\n 2 \r\n");
                 break;
                 
                 case 122:
-                  LED1_TOGGLE;
+                  //LED1_TOGGLE;
                   printf("\r\n key_val=%d \r\n",key_val);
                   printf("\r\n 3 \r\n");
                 break;
                 
                 case 16:
-                  LED1_TOGGLE;
+                  //LED1_TOGGLE;
                   printf("\r\n key_val=%d \r\n",key_val);
                   printf("\r\n 4 \r\n");
                 break;
                 
                 case 56:
-                  LED1_TOGGLE;
+                  //LED1_TOGGLE;
                   printf("\r\n key_val=%d \r\n",key_val);
                   printf("\r\n 5 \r\n");
                 break;
                 
                 case 90:
-                  LED1_TOGGLE;
+                  //LED1_TOGGLE;
                   printf("\r\n key_val=%d \r\n",key_val);
                   printf("\r\n 6 \r\n");
                 break;
                 
                   case 66:
-                  LED1_TOGGLE;
+                  //LED1_TOGGLE;
                   printf("\r\n key_val=%d \r\n",key_val);
                   printf("\r\n 7 \r\n");
                 break;
                 
                 case 74:
-                  LED1_TOGGLE;
+                  //LED1_TOGGLE;
                   printf("\r\n key_val=%d \r\n",key_val);
                   printf("\r\n 8 \r\n");
                 break;
                 
                 case 82:
-                  LED1_TOGGLE;
+                  //LED1_TOGGLE;
                   printf("\r\n key_val=%d \r\n",key_val);
                   printf("\r\n 9 \r\n");
                 break;
@@ -324,9 +348,13 @@ int main(void)
                 default:       
                 break;
             }
-        }
-    
-                
+            
+            if((num = Wind_IsNum(key_val)) != -1)
+            {
+                Wind_Num();
+            }
+            }
+         
         }
         
         /*时间显示模式*/
@@ -347,19 +375,46 @@ int main(void)
 		{
 			Wind_AlarmShow(Alarmhour,Alarmmin);
                  /*把闹钟写入flash*/
-            AlarmCount = Alarmhour * 60 + Alarmmin;
-            Wind_WriteAlarm(&AlarmCount);  
-            test(1,AlarmCount);
+            Wind_WriteAlarm(&Alarmhour, &Alarmmin);  
+//            test(1,AlarmCount);
 		}
         else if(Wind_state == Wind_OFF)
         {
             ILI9341_Clear(0,0,LCD_X_LENGTH,LCD_Y_LENGTH);
         }            
+         
+
+        if(Alarmflag == 1)
+        {
+            BEEP_ON;
+            SysTick->CTRL |=  SysTick_CTRL_ENABLE_Msk;
+            LED_RED;
+            detime = 20000;
+            while(detime){};
+            LED_BLUE;
+            detime = 10000;
+            while(detime);
+        }
+        else 
+        {
+            SysTick->CTRL &= ~ SysTick_CTRL_ENABLE_Msk;
+            LED_RGBOFF;
+            BEEP_OFF;
+        }
+
         
-//        char LCDTemp[100];
-//			//液晶显示时间
-//			sprintf(LCDTemp,"%d     ", key_val );	
-//            ILI9341_DisplayStringEx( 48+5 ,3*48+20,20,20,(uint8_t *)LCDTemp,0);
+        if(Wind_state != Wind_OFF){
+        if(Wind_alarmstate == 0)
+        {
+            HAL_NVIC_DisableIRQ(RTC_Alarm_IRQn);
+            ILI9341_DisplayStringEx( 4*48+5 ,4*48+20,20,20,(uint8_t *)"       ",0);
+        }
+        else
+        {
+            HAL_NVIC_EnableIRQ(RTC_Alarm_IRQn);
+            ILI9341_DisplayStringEx( 4*48+5 ,4*48+20,20,20,(uint8_t *)"Alarmed",0);
+        }
+    }
         
     }
 }

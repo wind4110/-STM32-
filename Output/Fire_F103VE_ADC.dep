@@ -1709,7 +1709,7 @@ I (..\Libraries\STM32F1xx_HAL_Driver\Inc\stm32f1xx_hal_hcd.h)(0x62B919A4)
 I (..\User\.\key\bsp_key.h)(0x62B919A4)
 I (..\User\main.h)(0x62B919A4)
 I (..\User\./led/bsp_led.h)(0x62B919A4)
-I (..\User\.\wind\wind.h)(0x62BF0F8C)
+I (..\User\.\wind\wind.h)(0x62BFAC45)
 F (..\Libraries\STM32F1xx_HAL_Driver\Src\stm32f1xx_hal_rtc_ex.c)(0x62B919A4)(--c99 -c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I ..\Libraries\CMSIS\Include -I ..\Libraries\CMSIS\Device\ST\STM32F1xx\Include -I ..\Libraries\STM32F1xx_HAL_Driver\Inc -I ..\User -I ..\User\led -I ..\User\GeneralTim-I"D:\Program Files\Keil\STM32F1xx_DFP\2.4.0\Device\Include"-D__UVISION_VERSION="537" -DSTM32F10X_HD -DUSE_HAL_DRIVER -DSTM32F103xE-o ..\output\stm32f1xx_hal_rtc_ex.o --omf_browse ..\output\stm32f1xx_hal_rtc_ex.crf --depend ..\output\stm32f1xx_hal_rtc_ex.d)
 I (..\Libraries\STM32F1xx_HAL_Driver\Inc\stm32f1xx_hal.h)(0x62B919A4)
 I (..\User\stm32f1xx_hal_conf.h)(0x62B919A4)
@@ -2539,7 +2539,7 @@ I (..\Libraries\STM32F1xx_HAL_Driver\Inc\stm32f1xx_hal_hcd.h)(0x62B919A4)
 I (..\User\qian_head.h)(0x62BD09AE)
 I (..\User\misc.h)(0x62BA9429)
 I (..\User\led\bsp_led.h)(0x62B919A4)
-F (..\User\main.c)(0x62BF1252)(--c99 -c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I ..\Libraries\CMSIS\Include -I ..\Libraries\CMSIS\Device\ST\STM32F1xx\Include -I ..\Libraries\STM32F1xx_HAL_Driver\Inc -I ..\User -I ..\User\led -I ..\User\GeneralTim-I"D:\Program Files\Keil\STM32F1xx_DFP\2.4.0\Device\Include"-D__UVISION_VERSION="537" -DSTM32F10X_HD -DUSE_HAL_DRIVER -DSTM32F103xE-o ..\output\main.o --omf_browse ..\output\main.crf --depend ..\output\main.d)
+F (..\User\main.c)(0x62BFBB29)(--c99 -c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I ..\Libraries\CMSIS\Include -I ..\Libraries\CMSIS\Device\ST\STM32F1xx\Include -I ..\Libraries\STM32F1xx_HAL_Driver\Inc -I ..\User -I ..\User\led -I ..\User\GeneralTim-I"D:\Program Files\Keil\STM32F1xx_DFP\2.4.0\Device\Include"-D__UVISION_VERSION="537" -DSTM32F10X_HD -DUSE_HAL_DRIVER -DSTM32F103xE-o ..\output\main.o --omf_browse ..\output\main.crf --depend ..\output\main.d)
 I (..\User\main.h)(0x62B919A4)
 I (..\Libraries\STM32F1xx_HAL_Driver\Inc\stm32f1xx_hal.h)(0x62B919A4)
 I (..\User\stm32f1xx_hal_conf.h)(0x62B919A4)
@@ -2603,14 +2603,14 @@ I (..\User\./font/fonts.h)(0x62B919A4)
 I (..\User\./flash/bsp_spi_flash.h)(0x62BEF902)
 I (..\User\./RTC/bsp_rtc.h)(0x62BEE86E)
 I (..\User\.\key\bsp_key.h)(0x62B919A4)
-I (..\User\./wind/wind.h)(0x62BF0F8C)
+I (..\User\./wind/wind.h)(0x62BFAC45)
 I (..\User\./irda/bsp_irda.h)(0x62BE8870)
 I (..\User\qian_head.h)(0x62BD09AE)
 I (..\User\misc.h)(0x62BA9429)
 I (..\User\stm32f10x_exti.h)(0x62BA7094)
 I (..\User\./systick/bsp_systick.h)(0x62BEB88D)
 I (..\User\./beep/bsp_beep.h)(0x62BABB76)
-F (..\User\stm32f1xx_it.c)(0x62BEF812)(--c99 -c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I ..\Libraries\CMSIS\Include -I ..\Libraries\CMSIS\Device\ST\STM32F1xx\Include -I ..\Libraries\STM32F1xx_HAL_Driver\Inc -I ..\User -I ..\User\led -I ..\User\GeneralTim-I"D:\Program Files\Keil\STM32F1xx_DFP\2.4.0\Device\Include"-D__UVISION_VERSION="537" -DSTM32F10X_HD -DUSE_HAL_DRIVER -DSTM32F103xE-o ..\output\stm32f1xx_it.o --omf_browse ..\output\stm32f1xx_it.crf --depend ..\output\stm32f1xx_it.d)
+F (..\User\stm32f1xx_it.c)(0x62BFAA30)(--c99 -c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I ..\Libraries\CMSIS\Include -I ..\Libraries\CMSIS\Device\ST\STM32F1xx\Include -I ..\Libraries\STM32F1xx_HAL_Driver\Inc -I ..\User -I ..\User\led -I ..\User\GeneralTim-I"D:\Program Files\Keil\STM32F1xx_DFP\2.4.0\Device\Include"-D__UVISION_VERSION="537" -DSTM32F10X_HD -DUSE_HAL_DRIVER -DSTM32F103xE-o ..\output\stm32f1xx_it.o --omf_browse ..\output\stm32f1xx_it.crf --depend ..\output\stm32f1xx_it.d)
 I (..\User\main.h)(0x62B919A4)
 I (..\Libraries\STM32F1xx_HAL_Driver\Inc\stm32f1xx_hal.h)(0x62B919A4)
 I (..\User\stm32f1xx_hal_conf.h)(0x62B919A4)
@@ -2903,7 +2903,7 @@ I (..\Libraries\STM32F1xx_HAL_Driver\Inc\stm32f1xx_hal_hcd.h)(0x62B919A4)
 I (..\User\./rtc/bsp_rtc.h)(0x62BEE86E)
 I (..\User\./lcd/bsp_ili9341_lcd.h)(0x62BF0AB9)
 I (..\User\./font/fonts.h)(0x62B919A4)
-I (..\User\./wind/wind.h)(0x62BF0F8C)
+I (..\User\./wind/wind.h)(0x62BFAC45)
 F (..\User\usart\bsp_debug_usart.c)(0x62B919A4)(--c99 -c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I ..\Libraries\CMSIS\Include -I ..\Libraries\CMSIS\Device\ST\STM32F1xx\Include -I ..\Libraries\STM32F1xx_HAL_Driver\Inc -I ..\User -I ..\User\led -I ..\User\GeneralTim-I"D:\Program Files\Keil\STM32F1xx_DFP\2.4.0\Device\Include"-D__UVISION_VERSION="537" -DSTM32F10X_HD -DUSE_HAL_DRIVER -DSTM32F103xE-o ..\output\bsp_debug_usart.o --omf_browse ..\output\bsp_debug_usart.crf --depend ..\output\bsp_debug_usart.d)
 I (..\User\./usart/bsp_debug_usart.h)(0x62B919A4)
 I (..\Libraries\CMSIS\Device\ST\STM32F1xx\Include\stm32f1xx.h)(0x62B919A4)
@@ -3081,7 +3081,7 @@ I (..\User\qian_head.h)(0x62BD09AE)
 I (..\User\misc.h)(0x62BA9429)
 I (..\User\stm32f10x_exti.h)(0x62BA7094)
 I (..\User\led\bsp_led.h)(0x62B919A4)
-F (..\User\wind\wind.c)(0x62BF0F19)(--c99 -c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I ..\Libraries\CMSIS\Include -I ..\Libraries\CMSIS\Device\ST\STM32F1xx\Include -I ..\Libraries\STM32F1xx_HAL_Driver\Inc -I ..\User -I ..\User\led -I ..\User\GeneralTim-I"D:\Program Files\Keil\STM32F1xx_DFP\2.4.0\Device\Include"-D__UVISION_VERSION="537" -DSTM32F10X_HD -DUSE_HAL_DRIVER -DSTM32F103xE-o ..\output\wind.o --omf_browse ..\output\wind.crf --depend ..\output\wind.d)
+F (..\User\wind\wind.c)(0x62BFB286)(--c99 -c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I ..\Libraries\CMSIS\Include -I ..\Libraries\CMSIS\Device\ST\STM32F1xx\Include -I ..\Libraries\STM32F1xx_HAL_Driver\Inc -I ..\User -I ..\User\led -I ..\User\GeneralTim-I"D:\Program Files\Keil\STM32F1xx_DFP\2.4.0\Device\Include"-D__UVISION_VERSION="537" -DSTM32F10X_HD -DUSE_HAL_DRIVER -DSTM32F103xE-o ..\output\wind.o --omf_browse ..\output\wind.crf --depend ..\output\wind.d)
 I (..\User\./usart/bsp_debug_usart.h)(0x62B919A4)
 I (..\Libraries\CMSIS\Device\ST\STM32F1xx\Include\stm32f1xx.h)(0x62B919A4)
 I (..\Libraries\CMSIS\Device\ST\STM32F1xx\Include\stm32f103xe.h)(0x62B919A4)
@@ -3140,10 +3140,10 @@ I (..\Libraries\STM32F1xx_HAL_Driver\Inc\stm32f1xx_hal_hcd.h)(0x62B919A4)
 I (..\User\./rtc/bsp_rtc.h)(0x62BEE86E)
 I (..\User\./lcd/bsp_ili9341_lcd.h)(0x62BF0AB9)
 I (..\User\./font/fonts.h)(0x62B919A4)
-I (..\User\./wind/wind.h)(0x62BF0F8C)
+I (..\User\./wind/wind.h)(0x62BFAC45)
 I (..\User\./beep/bsp_beep.h)(0x62BABB76)
 I (..\User\./flash/bsp_spi_flash.h)(0x62BEF902)
-F (..\User\qian_expand.c)(0x62BEA190)(--c99 -c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I ..\Libraries\CMSIS\Include -I ..\Libraries\CMSIS\Device\ST\STM32F1xx\Include -I ..\Libraries\STM32F1xx_HAL_Driver\Inc -I ..\User -I ..\User\led -I ..\User\GeneralTim-I"D:\Program Files\Keil\STM32F1xx_DFP\2.4.0\Device\Include"-D__UVISION_VERSION="537" -DSTM32F10X_HD -DUSE_HAL_DRIVER -DSTM32F103xE-o ..\output\qian_expand.o --omf_browse ..\output\qian_expand.crf --depend ..\output\qian_expand.d)
+F (..\User\qian_expand.c)(0x62BFA504)(--c99 -c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I ..\Libraries\CMSIS\Include -I ..\Libraries\CMSIS\Device\ST\STM32F1xx\Include -I ..\Libraries\STM32F1xx_HAL_Driver\Inc -I ..\User -I ..\User\led -I ..\User\GeneralTim-I"D:\Program Files\Keil\STM32F1xx_DFP\2.4.0\Device\Include"-D__UVISION_VERSION="537" -DSTM32F10X_HD -DUSE_HAL_DRIVER -DSTM32F103xE-o ..\output\qian_expand.o --omf_browse ..\output\qian_expand.crf --depend ..\output\qian_expand.d)
 I (..\User\qian_head.h)(0x62BD09AE)
 I (..\Libraries\CMSIS\Device\ST\STM32F1xx\Include\stm32f1xx.h)(0x62B919A4)
 I (..\Libraries\CMSIS\Device\ST\STM32F1xx\Include\stm32f103xe.h)(0x62B919A4)

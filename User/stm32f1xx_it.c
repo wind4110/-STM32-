@@ -216,6 +216,8 @@ void IRDA_EXTI_IRQHANDLER_FUN(void)
 	
 //	LED1_TOGGLE;
 
+    LED1_ON;
+    
   if(EXTI_GetITStatus(IRDA_EXTI_LINE) != RESET) /* 确保是否产生了EXTI Line中断 */
 	{   
 		SysTick->CTRL |=  SysTick_CTRL_ENABLE_Msk;
@@ -277,6 +279,7 @@ void IRDA_EXTI_IRQHANDLER_FUN(void)
 		//if(IrDa_DATA_IN())LED1_TOGGLE;
     }// while(1) 
 //		LED1_TOGGLE;
+    LED1_OFF;
 		SysTick->CTRL &= ~ SysTick_CTRL_ENABLE_Msk;
 		EXTI_ClearITPendingBit(IRDA_EXTI_LINE);     //清除中断标志位
 //    LED3_TOGGLE;
